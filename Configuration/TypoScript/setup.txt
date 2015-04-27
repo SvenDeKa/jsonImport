@@ -1,0 +1,167 @@
+
+plugin.tx_z3fasapi {
+	view {
+		templateRootPath = {$plugin.tx_z3fasapi.view.templateRootPath}
+		partialRootPath = {$plugin.tx_z3fasapi.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_z3fasapi.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = 30
+#{$plugin.tx_z3fasapi.persistence.storagePid}
+	}
+	features {
+		# uncomment the following line to enable the new Property Mapper.
+		# rewrittenPropertyMapper = 1
+	}
+	settings{
+		key = {$plugin.tx_z3fasapi.settings.key}
+		format = json
+		attributes.pre = @
+# Age of entries considered new. (fixes Time-Differences between Web- and DB-Server)
+		importWhiteTime = 120
+		objects{
+			Data{
+				passthrough = 1
+			}
+			Events{
+				holding = Event
+			}
+			Locations{
+				holding = Location
+			}
+			Hosts{
+				holding = Host
+			}
+			Dates{
+				holding = Date
+			}
+			Event {
+#				class = the Class of the Model
+#				we added the uuid-field in another extension called z3_uuid, so we need that model:
+				class = \TYPO3\Z3Extend\Domain\Model\Event
+				parentClass = \TYPO3\Z3Event\Domain\Model\Event
+#				table = the db-table // we wanted to get rid of that, but there was no simple way, to sniff it, if the original Model was extended
+				table = tx_z3event_domain_model_event
+#				sourceIdentifier = the Propertiename inside JSON
+				sourceIdentifier = uuid
+#				targetIdentifier = the DB-Field identifing the Entry
+				targetIdentifier = uuid
+#				storagePid = no explanation needed, huh!?
+				storagePid = 30
+#				remove if the eintry doesnt exist anymore
+				removeNonOldEntries = 1
+#				attributes = array of properties to be written
+				attributes {
+#					propertyInModel = pointer inside JSON
+					uuid = uuid
+					name = name
+					description = description
+#					TS-array indicate a relation
+					dates{
+#						type = intermediate, nm, n1 or 1n
+						type = 1n
+#						should the relations be inserted according to JSON-children = 1
+						getFromChildNodes = 1
+#						ClassName without Namespace-Path of the related Object (should be defined in settings.objects.XXX)
+						relatedObject = Date
+					}
+				}
+			}
+			Date {
+			#	class = TYPO3\Z3Event\Domain\Model\Date
+			#	we added the uuid-field in another extension called z3_uuid, so we need that model:
+				class = \TYPO3\Z3Extend\Domain\Model\Date
+				table = tx_z3event_domain_model_date
+				sourceIdentifier = uuid
+				targetIdentifier = uuid
+				storagePid = 30
+#				remove if the eintry doesnt exist anymore
+				removeNonOldEntries = 1
+				attributes {
+					uuid = uuid
+					datetimeStart = datetimeStart
+					datetimeEnd = datetimeEnd
+    				hosts {
+						type = intermediate
+						getFromChildNodes = 1
+#						localField = field pointing do parent inside the intermediateTable
+						localField = date
+#						localField = field pointing do child inside the intermediateTable
+						foreignField = host
+#						ClassName without Namespace-Path of the related Object (should be defined in settings.objects.XXX)
+						relatedObject = Host
+#						pointer in the JSON holding the identifing value 
+						sourceField = uuid
+#						ClassName without Namespace-Path of the intermediate Object (should be defined in settings.objects.XXX)
+						intermediateObject = DateHost
+#						definition of properties on the intermediateObject
+						intermediateProperties {
+							status.value = confirmed
+						}
+					}
+					location {
+						type = n1
+						relatedObject = Location
+						sourceField = location
+					}
+#					attendees = attendees
+#    				hosts = hosts
+#					media = media
+				}
+			}
+			DateHost {
+				class = \TYPO3\Z3Event\Domain\Model\DateHost
+				table = tx_z3event_domain_model_datehost
+				storagePid = 30
+				sourceIdentifier = uuid
+				targetIdentifier = uuid
+			}
+			Host {
+			#	class = TYPO3\Z3Event\Domain\Model\Host
+			#	we added the uuid-field in another extension called z3_uuid, so we need that model:
+				class = \TYPO3\Z3Extend\Domain\Model\Host
+				table = tx_z3event_domain_model_host
+				storagePid = 30
+				sourceIdentifier = uuid
+				targetIdentifier = uuid
+				noEditIfIdentifierOnly = 1
+#				remove if the eintry doesnt exist anymore
+				removeNonOldEntries = 1
+				attributes {
+					uuid = uuid
+					salutation= salutation
+					title = title
+					name = name
+					company = company
+					position = position
+					city = city
+					email = email
+					www = www
+				}
+			}
+			Location {
+			#	class = TYPO3\Z3Event\Domain\Model\Location
+			#	we added the uuid-field in another extension called z3_uuid, so we need that model:
+				class = \TYPO3\Z3Extend\Domain\Model\Location
+				table = tx_z3event_domain_model_location
+				storagePid = 30
+				sourceIdentifier = uuid
+				targetIdentifier = uuid
+#				remove if the eintry doesnt exist anymore
+				removeNonOldEntries = 1
+				attributes{
+					uuid = uuid
+					name = name
+					address = address
+					postalCode = postalcode
+					city = city
+					lat = lat
+					lng = lng
+					www = www
+					email = email
+					description = description
+				}
+			}
+		}
+	}
+}

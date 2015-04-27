@@ -1,0 +1,19 @@
+
+plugin.tx_z3fasapi {
+	view {
+		# cat=plugin.tx_z3fasapi/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:z3_fasapi/Resources/Private/Templates/
+		# cat=plugin.tx_z3fasapi/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:z3_fasapi/Resources/Private/Partials/
+		# cat=plugin.tx_z3fasapi/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:z3_fasapi/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_z3fasapi//a; type=string; label=Default storage PID
+		storagePid = 31,32,34,35
+	}
+	settings {
+		# cat=plugin.tx_z3fasapi//a; type=string; label=API-Key
+		key = Fca3LpF52497KcPMFaTJ582ejEq861716678
+	}
+}

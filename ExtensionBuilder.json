@@ -1,0 +1,97 @@
+{
+    "modules": [
+        {
+            "config": {
+                "position": [
+                    177,
+                    116
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": false,
+                    "_default1_show": false,
+                    "_default2_new_create": true,
+                    "_default3_edit_update": true,
+                    "_default4_delete": true,
+                    "customActions": [
+
+                    ]
+                },
+                "name": "Api",
+                "objectsettings": {
+                    "addDeletedField": true,
+                    "addHiddenField": true,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": false,
+                    "categorizable": false,
+                    "description": "",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "Entity",
+                    "uid": "439673350502"
+                },
+                "propertyGroup": {
+                    "properties": [
+
+                    ]
+                },
+                "relationGroup": {
+                    "relations": [
+
+                    ]
+                }
+            }
+        }
+    ],
+    "properties": {
+        "backendModules": [
+
+        ],
+        "description": "API to connect Seminarmgr with TYPO3 via eID",
+        "emConf": {
+            "category": "plugin",
+            "custom_category": "",
+            "dependsOn": "typo3 => 6.1\n\n",
+            "disableLocalization": false,
+            "disableVersioning": false,
+            "sourceLanguage": "en",
+            "state": "alpha",
+            "targetVersion": "6.1",
+            "version": ""
+        },
+        "extensionKey": "z3_fasapi",
+        "name": "z3 Fas api",
+        "originalExtensionKey": "z3_fasapi",
+        "persons": [
+            {
+                "company": "lwf \/ z3",
+                "email": "sven.kuelpmann@lenz-wie-fruehling.de",
+                "name": "Sven K\u00fclpmann",
+                "role": "Developer"
+            }
+        ],
+        "plugins": [
+            {
+                "actions": {
+                    "controllerActionCombinations": "Api=>create,edit,delete",
+                    "noncacheableActions": "Api=>create,edit,delete",
+                    "switchableActions": ""
+                },
+                "key": "api",
+                "name": "api"
+            }
+        ],
+        "vendorName": "Z3"
+    },
+    "wires": [
+
+    ],
+    "log": {
+        "last_modified": "2014-08-21 01:27",
+        "extension_builder_version": "6.2.0",
+        "be_user": " (4)"
+    }
+}
